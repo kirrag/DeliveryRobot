@@ -26,7 +26,11 @@ public class Main {
 		for (int n = 0; n < 1000; n++) {
 
 			String text = generateRoute("RLRFR", 100);
-			
+			new Thread( () -> {
+				while (!Thread.interrupted()) {
+					
+				}
+			});
 
 			new Thread(() -> {
 
