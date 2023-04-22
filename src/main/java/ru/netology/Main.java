@@ -22,19 +22,33 @@ public class Main {
 
 		long startTs = System.currentTimeMillis();
 
+		new Thread( () -> {
+			int count = 0;
+			while (!Thread.interrupted()) {
+				if (sizeToFreq.containsKey(count)) {
+					for (int key : sizeToFreq.keySet()) {
+						int value = sizeToFreq.get(key);
+						if (value > maxValue) {
+							maxValue = value;
+							maxKey = key;
+						}
+					}
+					return maxKey;
+				} else {
+					System.out.println("Список пуст.");
+				}
+			}
+		});
 
 		for (int n = 0; n < 1000; n++) {
 
 			String text = generateRoute("RLRFR", 100);
-			new Thread( () -> {
-				while (!Thread.interrupted()) {
-					
-				}
-			});
+
+
+
 
 			new Thread(() -> {
 
-				int count = 0;
 
 				for (int i = 0; i < text.length(); i++) {
 					if (text.charAt(i) == 'R' ) {
@@ -56,13 +70,6 @@ public class Main {
 
 		System.out.println("Time: " + (endTs - startTs) + "ms");
 
-		for (int key : sizeToFreq.keySet()) {
-			int value = sizeToFreq.get(key);
-			if (value > maxValue) {
-				maxValue = value;
-				maxKey = key;
-			}
-		}
 	
 		System.out.println("Самое частое количество повторений " + maxKey + "(встретилось " + maxValue +" раз) Другие размеры:");
 
